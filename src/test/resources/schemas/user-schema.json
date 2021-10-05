@@ -1,0 +1,54 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "sunrise": {
+      "type": "string"
+    },
+    "lng": {
+      "type": "integer"
+    },
+    "countryCode": {
+      "type": "string"
+    },
+    "gmtOffset": {
+      "type": "integer"
+    },
+    "rawOffset": {
+      "type": "integer"
+    },
+    "sunset": {
+      "type": "string"
+    },
+    "timezoneId": {
+      "type": "string"
+    },
+    "dstOffset": {
+      "type": "integer"
+    },
+    "countryName": {
+      "type": "string"
+    },
+    "time": {
+      "type": "string"
+    },
+    "lat": {
+      "type": "integer"
+    }
+  },
+  "required": [
+    "sunrise",
+    "lng",
+    "countryCode",
+    "gmtOffset",
+    "rawOffset",
+    "sunset",
+    "timezoneId",
+    "dstOffset",
+    "countryName",
+    "time",
+    "lat"
+  ],
+  "maxProperties": 11,
+  "minProperties": 11
+}

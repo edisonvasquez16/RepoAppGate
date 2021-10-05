@@ -1,0 +1,12 @@
+{
+  "users": [
+    {
+      "code": 200,
+      "formatted": "true",
+      "lat": "-10",
+      "lng": "20",
+      "username": "qa_mobile_easy",
+      "style": "full"
+    }
+  ]
+}
