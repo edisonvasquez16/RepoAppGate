@@ -7,6 +7,46 @@
       "lng": "20",
       "username": "qa_mobile_easy",
       "style": "full"
+    },
+    {
+      "code": 401,
+      "formatted": "true",
+      "lat": "-10",
+      "lng": "20",
+      "username": null,
+      "style": "full"
+    },
+    {
+      "code": 402,
+      "formatted": "true",
+      "lat": null,
+      "lng": "20",
+      "username": "qa_mobile_easy",
+      "style": "full"
+    },
+    {
+      "code": 403,
+      "formatted": "true",
+      "lat": "-10",
+      "lng": null,
+      "username": "qa_mobile_easy",
+      "style": "full"
+    },
+    {
+      "code": 404,
+      "formatted": "true",
+      "lat": "-10",
+      "lng": "20",
+      "username": "qa_mobile_easy",
+      "style": null
+    },
+    {
+      "code": 405,
+      "formatted": null,
+      "lat": "-10",
+      "lng": "20",
+      "username": "qa_mobile_easy",
+      "style": "full"
     }
   ]
 }

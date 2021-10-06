@@ -3,7 +3,8 @@ package co.com.appgate.models;
 import lombok.Data;
 
 @Data
-public class UserResponse {
+public class UserResponseModel {
 
+    private StatusModel status;
 
 }

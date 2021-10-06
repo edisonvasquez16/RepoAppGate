@@ -25,12 +25,67 @@ public class ExampleTest extends SetTheStage {
     @SneakyThrows
     @Test
     @WithTags({@WithTag("Smoke")})
-    public void getUserInfoOk() {
+    public void getUserInfoWithFullInfo() {
         theActorInTheSpotlight().wasAbleTo(
                 GetUser.information(
-                        UserFactory.send(200)
-                ));
+                        UserFactory.send(200)));
         theActorInTheSpotlight()
                 .should(SeeThat.userInfo());
     }
+
+    @SneakyThrows
+    @Test
+    @WithTags({@WithTag("Smoke")})
+    public void getUserInfoWithoutParameterStyle() {
+        theActorInTheSpotlight().wasAbleTo(
+                GetUser.information(
+                        UserFactory.send(404)));
+        theActorInTheSpotlight()
+                .should(SeeThat.userInfo());
+    }
+
+    @SneakyThrows
+    @Test
+    @WithTags({@WithTag("Smoke")})
+    public void getUserInfoWithoutParameterFormatted() {
+        theActorInTheSpotlight().wasAbleTo(
+                GetUser.information(
+                        UserFactory.send(405)));
+        theActorInTheSpotlight()
+                .should(SeeThat.userInfo());
+    }
+
+    @SneakyThrows
+    @Test
+    @WithTags({@WithTag("Smoke")})
+    public void validateInvalidUser() {
+        theActorInTheSpotlight().wasAbleTo(
+                GetUser.information(
+                        UserFactory.send(401)));
+        theActorInTheSpotlight()
+                .should(SeeThat.userInfoFail(401));
+    }
+
+    @SneakyThrows
+    @Test
+    @WithTags({@WithTag("Smoke")})
+    public void missingParameterLat() {
+        theActorInTheSpotlight().wasAbleTo(
+                GetUser.information(
+                        UserFactory.send(402)));
+        theActorInTheSpotlight()
+                .should(SeeThat.userInfoFailWith(402));
+    }
+
+    @SneakyThrows
+    @Test
+    @WithTags({@WithTag("Smoke")})
+    public void missingParameterLng() {
+        theActorInTheSpotlight().wasAbleTo(
+                GetUser.information(
+                        UserFactory.send(403)));
+        theActorInTheSpotlight()
+                .should(SeeThat.userInfoFailWith(403));
+    }
+
 }
