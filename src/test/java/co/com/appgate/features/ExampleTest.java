@@ -4,6 +4,7 @@ import co.com.appgate.conf.SetTheStage;
 import co.com.appgate.consequences.SeeThat;
 import co.com.appgate.factories.UserFactory;
 import co.com.appgate.tasks.GetUser;
+import co.com.appgate.tasks.GetUserFail;
 import lombok.SneakyThrows;
 import net.serenitybdd.junit.runners.SerenityRunner;
 import net.thucydides.core.annotations.Narrative;
@@ -69,12 +70,23 @@ public class ExampleTest extends SetTheStage {
     @SneakyThrows
     @Test
     @WithTags({@WithTag("Smoke")})
+    public void validateUserParameterPath() {
+        theActorInTheSpotlight().wasAbleTo(
+                GetUserFail.information(
+                        UserFactory.send(406)));
+        theActorInTheSpotlight()
+                .should(SeeThat.userInfoFail(406));
+    }
+
+    @SneakyThrows
+    @Test
+    @WithTags({@WithTag("Smoke")})
     public void missingParameterLat() {
         theActorInTheSpotlight().wasAbleTo(
                 GetUser.information(
                         UserFactory.send(402)));
         theActorInTheSpotlight()
-                .should(SeeThat.userInfoFailWith(402));
+                .should(SeeThat.userInfoFail(402));
     }
 
     @SneakyThrows
@@ -85,7 +97,7 @@ public class ExampleTest extends SetTheStage {
                 GetUser.information(
                         UserFactory.send(403)));
         theActorInTheSpotlight()
-                .should(SeeThat.userInfoFailWith(403));
+                .should(SeeThat.userInfoFail(403));
     }
 
 }

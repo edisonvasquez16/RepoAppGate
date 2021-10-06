@@ -13,7 +13,6 @@ import static org.hamcrest.core.IsEqual.equalTo;
 public class SeeThat {
 
     public static Consequence[] userInfo() {
-        String lr = LastResponse.received().answeredBy(theActorInTheSpotlight()).asString();
         return new Consequence[]{
                 seeThat("The response code", response -> LastResponse.received()
                                 .answeredBy(theActorInTheSpotlight())
@@ -31,26 +30,7 @@ public class SeeThat {
                 seeThat("The response code", response -> LastResponse.received()
                                 .answeredBy(theActorInTheSpotlight())
                                 .statusCode(),
-                        equalTo(status)),
-                seeThat("Schema validation", response -> LastResponse.received()
-                                .answeredBy(theActorInTheSpotlight()).asString(),
-                        JsonSchemaValidator
-                                .matchesJsonSchemaInClasspath("schemas/user-schema-fail.json")),
-                seeThat("Message validation", response -> LastResponse.received()
-                                .answeredBy(theActorInTheSpotlight()).as(UserResponseModel.class).getStatus().getMessage(),
-                        equalTo(getMessage(status))),
-                seeThat("Value response validation", response -> LastResponse.received()
-                                .answeredBy(theActorInTheSpotlight()).as(UserResponseModel.class).getStatus().getValue(),
-                        equalTo(getValue(status)))
-        };
-    }
-
-    public static Consequence[] userInfoFailWith(int status) {
-        return new Consequence[]{
-                seeThat("The response code", response -> LastResponse.received()
-                                .answeredBy(theActorInTheSpotlight())
-                                .statusCode(),
-                        equalTo(200)),
+                        equalTo(getStatusResponse(status))),
                 seeThat("Schema validation", response -> LastResponse.received()
                                 .answeredBy(theActorInTheSpotlight()).asString(),
                         JsonSchemaValidator
@@ -65,21 +45,24 @@ public class SeeThat {
     }
 
     private static String getMessage(int code) {
-        String messaje = "";
+        String message = "";
         switch (code) {
             case 401:
-                messaje = Messages.INVALID_USER.message();
+                message = Messages.INVALID_USER.message();
                 break;
             case 402:
             case 403:
-                messaje = Messages.MISSING_PARAMETER.message();
+                message = Messages.MISSING_PARAMETER.message();
+                break;
+            case 406:
+                message = Messages.ADD_USERNAME.message();
                 break;
             default:
-                messaje = "";
+                message = "";
                 break;
 
         }
-        return messaje;
+        return message;
     }
 
     private static int getValue(int code) {
@@ -92,10 +75,31 @@ public class SeeThat {
             case 403:
                 value = Messages.MISSING_PARAMETER.code();
                 break;
+            case 406:
+                value = Messages.ADD_USERNAME.code();
+                break;
             default:
                 value = 0;
                 break;
         }
         return value;
+    }
+
+    private static int getStatusResponse(int code) {
+        int status = 0;
+        switch (code) {
+            case 401:
+            case 406:
+                status = 401;
+                break;
+            case 402:
+            case 403:
+                status = 200;
+                break;
+            default:
+                status = 0;
+                break;
+        }
+        return status;
     }
 }
