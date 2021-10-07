@@ -1,0 +1,28 @@
+node {
+    stage('Build and Execute tests') {
+        catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
+            withMaven( maven: 'MVN 3.6.3'){
+                sh "mvn -q clean verify -Dtest=AppgateRunner"
+            }
+            result = currentBuild.result
+        }
+    }
+    stage('Generate Serenity Reports'){
+        publishHTML(target: [
+            reportName : 'Completo',
+            reportDir:   'target/site/serenity',
+            reportFiles: 'index.html',
+            keepAll:     true,
+            alwaysLinkToLastBuild: true,
+            allowMissing: false
+        ])
+        publishHTML(target: [
+            reportName : 'Resumen',
+            reportDir:   'target/site/serenity',
+            reportFiles: 'serenity-summary.html',
+            keepAll:     true,
+            alwaysLinkToLastBuild: true,
+            allowMissing: false
+        ])
+    }
+}
